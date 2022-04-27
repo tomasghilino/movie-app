@@ -6,9 +6,6 @@ export const Nav = styled.nav`
   align-items: center;
   background-color: var(--black);
   padding: 1.5rem;
-
-  h1 {
-  }
 `;
 
 export const NavItemsWrapper = styled.div`
@@ -20,10 +17,17 @@ export const NavItemsWrapper = styled.div`
     text-decoration: none;
     font-size: 2rem;
     color: var(--white);
+    align-self: center;
     &:hover {
       color: #c2c2c2;
     }
     transition: color 0.4s;
+  }
+
+  a:last-child {
+    background-color: var(--darkRed);
+    padding: 1.2rem;
+    border-radius: 1.2rem;
   }
 `;
 export const NavTitle = styled.h1`
@@ -35,5 +39,9 @@ export const NavTitle = styled.h1`
   span {
     color: #b30d0d;
     font-weight: 700;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
