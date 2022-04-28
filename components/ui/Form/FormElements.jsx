@@ -6,6 +6,7 @@ export const Form = styled.form`
   max-width: 600px;
   margin: 0 auto;
   gap: 1.5rem;
+  padding: 1rem;
 
   input {
     padding: 1.2rem;
