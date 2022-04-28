@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // Styles
 import { Form } from '../components/ui/Form/FormElements';
@@ -11,7 +12,21 @@ import Error from '../components/ui/Error';
 import { Formik } from 'formik';
 import { LoginSchema } from '../Auth/formValidations';
 
+//FIREBASE
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+
 const Login = () => {
+  const { push } = useRouter();
+
+  const login = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Layout>
       <div>
@@ -21,7 +36,7 @@ const Login = () => {
           initialValues={{ email: '', password: '' }}
           validationSchema={LoginSchema}
           onSubmit={(values) => {
-            console.log(values);
+            login(values.email, values.password);
           }}
         >
           {({

@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/dist/client/link';
+import { useRouter } from 'next/router';
 
 // styles
 import { Form } from '../components/ui/Form/FormElements';
@@ -12,7 +13,22 @@ import Error from '../components/ui/Error';
 import { Formik } from 'formik';
 import { SignupSchema } from '../Auth/formValidations';
 
+//FIREBASE
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+
 const Signup = () => {
+  const { push } = useRouter();
+
+  const register = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout>
       <div>
@@ -27,7 +43,7 @@ const Signup = () => {
           }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            console.log(values);
+            register(values.email, values.password);
           }}
         >
           {({
@@ -40,14 +56,6 @@ const Signup = () => {
             /* and other goodies */
           }) => (
             <Form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter your name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.name && <Error text={errors.name} />}
               <input
                 type="email"
                 name="email"
