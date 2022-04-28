@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-import { Nav, NavTitle, NavItemsWrapper, NavLink } from './NavigationElements';
+import { Nav, NavTitle, NavItemsWrapper } from './NavigationElements';
 
 const Navigation = () => {
-  const loggedIn = true;
+  const loggedIn = false;
   return (
     <Nav>
-      <NavTitle>
-        Movie<span>App</span>
-      </NavTitle>
+      <Link href="/">
+        <NavTitle>
+          Movie<span>App</span>
+        </NavTitle>
+      </Link>
 
       <NavItemsWrapper>
         {loggedIn ? (
@@ -19,8 +21,8 @@ const Navigation = () => {
           </>
         ) : (
           <>
-            <Link href="/">Login</Link>
-            <Link href="/">Sign Up</Link>
+            <Link href="/login">Login</Link>
+            <Link href="/signup">Sign Up</Link>
           </>
         )}
       </NavItemsWrapper>
