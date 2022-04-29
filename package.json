@@ -18,11 +18,8 @@
     "react-dom": "18.1.0",
     "react-icons": "^4.3.1",
     "styled-components": "^5.3.5",
-<<<<<<< HEAD
     "swiper": "^8.1.4",
-=======
     "sweetalert2": "^11.4.10",
->>>>>>> d23f14e2c475c8bf6fe20106a2d0873eba63c7f4
     "yup": "^0.32.11"
   },
   "devDependencies": {
