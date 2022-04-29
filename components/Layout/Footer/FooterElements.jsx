@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const FooterLayout = styled.div`
-  /* position: fixed;
-    bottom: 0; */
   width: 100%;
 `;
 
@@ -13,11 +11,7 @@ export const FooterContent = styled.div`
   padding: 2rem;
 
   border-top: 2px solid var(--gray);
-  background: radial-gradient(
-    circle,
-    rgba(27, 27, 27, 1) 15%,
-    rgba(3, 3, 3, 1) 100%
-  );
+  background: var(--navgradient);
 `;
 
 export const FooterIcons = styled.div`
@@ -71,6 +65,7 @@ export const FooterButtons = styled.div`
 
 export const FooterBottomText = styled.p`
   font-size: 1.1rem;
+  padding: 0.15rem 0;
   text-align: center;
   color: var(--white);
   border-top: 1px solid black;

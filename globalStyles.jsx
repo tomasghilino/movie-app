@@ -7,7 +7,9 @@ const GlobalStyle = createGlobalStyle`
         --black: #000000;
         --white: #ffffff;
         --gray: #564d4d;
+        --bright: #e6e6e6;
         --darkRed: #831010;
+        --navgradient: radial-gradient(circle,rgba(27, 27, 27, .9) 15%,rgba(3, 3, 3, 1) 100%);
         --roboto: 'Roboto', sans-serif;
     }
 

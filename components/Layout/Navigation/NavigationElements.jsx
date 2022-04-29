@@ -6,10 +6,11 @@ export const Nav = styled.nav`
   top: 0;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--black);
   padding: 1.5rem;
   z-index: 2;
   width: 100%;
+  background: var(--navgradient);
+  border-bottom: 2px solid var(--gray);
 `;
 
 export const NavItemsWrapper = styled.div`
@@ -20,10 +21,10 @@ export const NavItemsWrapper = styled.div`
   a {
     text-decoration: none;
     font-size: 2rem;
-    color: var(--white);
+    color: var(--bright);
     align-self: center;
     &:hover {
-      color: #c2c2c2;
+      color: var(--white);
     }
     transition: color 0.4s;
   }
@@ -35,17 +36,17 @@ export const NavItemsWrapper = styled.div`
   }
 `;
 export const NavTitle = styled.h1`
-  color: #bc0f0f;
-  font-size: 5rem;
+  color: var(--primary);
+  font-size: 4rem;
   font-weight: 500;
   margin-left: 2rem;
 
   span {
-    color: #b30d0d;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   &:hover {
     cursor: pointer;
+    filter: brightness(125%);
   }
 `;
