@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 // styles
 import { Form } from '../components/ui/Form/FormElements';
-import { Title, Text } from '../components/Auth/AuthElements';
+import { Title, Text, Container } from '../components/Auth/AuthElements';
 
 import Error from '../components/ui/Error';
 
@@ -31,7 +31,7 @@ const Signup = () => {
 
   return (
     <Layout>
-      <div>
+      <Container>
         <Title>Sign Up</Title>
 
         <Formik
@@ -88,7 +88,7 @@ const Signup = () => {
         <Text>
           Already have an account? Login<Link href="/login">here</Link>
         </Text>
-      </div>
+      </Container>
     </Layout>
   );
 };

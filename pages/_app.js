@@ -1,7 +1,7 @@
 import GlobalStyle from '../globalStyles.jsx';
 import 'normalize.css';
 
-//Auth Context
+//Context
 import { ContextAuthProvider } from '../context/AuthContext';
 
 function MyApp({ Component, pageProps }) {

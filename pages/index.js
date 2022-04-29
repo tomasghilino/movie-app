@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Layout from '../components/Layout';
+import HomeApp from '../components/HomeApp';
 
 export default function Home() {
   return (
@@ -21,7 +22,9 @@ export default function Home() {
         />
       </Head>
 
-      <Layout />
+      <Layout>
+        <HomeApp />
+      </Layout>
     </>
   );
 }

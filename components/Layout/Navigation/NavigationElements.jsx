@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 export const Nav = styled.nav`
   display: flex;
+  position: fixed;
+  top: 0;
   justify-content: space-between;
   align-items: center;
   background-color: var(--black);
   padding: 1.5rem;
+  z-index: 2;
+  width: 100%;
 `;
 
 export const NavItemsWrapper = styled.div`
