@@ -15,6 +15,7 @@ export const Hero = styled.div`
 
 export const HeroDesc = styled.div`
   position: absolute;
+  max-width: min-content;
 
   top: 70%;
   left: 20%;
@@ -62,3 +63,5 @@ export const HeroCTA = styled.div`
     }
   }
 `;
+
+// MAIN APP SECTION
