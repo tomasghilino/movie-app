@@ -34,7 +34,7 @@ export const Form = styled.form`
 
     &:hover {
       cursor: pointer;
-      background-color: #b20909;
+      filter: brightness(120%);
     }
   }
 `;

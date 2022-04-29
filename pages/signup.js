@@ -3,6 +3,9 @@ import Layout from '../components/Layout';
 import Link from 'next/dist/client/link';
 import { useRouter } from 'next/router';
 
+// Alert
+import Swal from 'sweetalert2';
+
 // styles
 import { Form } from '../components/ui/Form/FormElements';
 import { Title, Text, Container } from '../components/Auth/AuthElements';
@@ -24,8 +27,20 @@ const Signup = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       push('/');
+
+      Swal.fire({
+        title: 'Registrado!',
+        text: 'Ya podes navegar tranquilo',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      });
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'No se pudo realizar el registro',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
     }
   };
 
@@ -48,6 +63,7 @@ const Signup = () => {
         >
           {({
             values,
+            touched,
             errors,
             handleChange,
             handleBlur,
@@ -63,7 +79,7 @@ const Signup = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.email && <Error text={errors.email} />}
+              {errors.email && touched.email && <Error text={errors.email} />}
               <input
                 type="password"
                 name="password"
@@ -71,7 +87,7 @@ const Signup = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.password && <Error text={errors.password} />}
+              {errors.password && touched.password && <Error text={errors.password} />}
               <input
                 type="password"
                 name="passwordRepeat"
@@ -79,7 +95,7 @@ const Signup = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.passwordRepeat && <Error text={errors.passwordRepeat} />}
+              {errors.passwordRepeat && touched.passwordRepeat && <Error text={errors.passwordRepeat} />}
               <button type="submit">Register</button>
             </Form>
           )}
