@@ -3,6 +3,9 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+// Alert
+import Swal from 'sweetalert2';
+
 // Styles
 import { Form } from '../components/ui/Form/FormElements';
 import { Title, Text, Container } from '../components/Auth/AuthElements';
@@ -23,8 +26,21 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       push('/');
+      
+      Swal.fire({
+        title: 'Logged In!',
+        text: 'Ya podes navegar tranquilo',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      });
     } catch (error) {
-      console.log(error);
+
+      Swal.fire({
+        title: 'Error',
+        text: 'Credenciales incorrectas',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
     }
   };
   return (
@@ -57,7 +73,7 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.email && <Error text={errors.email} />}
+              {errors.email && touched.email && <Error text={errors.email} />}
               <input
                 type="password"
                 name="password"
@@ -65,7 +81,7 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.password && <Error text={errors.password} />}
+              {errors.password && touched.password && <Error text={errors.password} />}
               <button type="submit">Login</button>
             </Form>
           )}
