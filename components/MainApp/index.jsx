@@ -1,16 +1,32 @@
 import React from 'react';
 
-import { MainAppDiv } from './MainAppElements';
+import {
+  MainAppDiv,
+  MainAppTitle,
+  MovieSliderWrapper,
+} from './MainAppElements';
 
 import useMovies from '../../hooks/useMovies';
 import MovieSlider from '../ui/MovieSlider';
 const MainApp = () => {
-  const { popularMovies } = useMovies();
+  const { popularMovies, topRatedMovies, upcomingMovies } = useMovies();
 
   return (
     <MainAppDiv>
-      <h1>Popular Movies</h1>
-      <MovieSlider movies={popularMovies} />
+      <MovieSliderWrapper>
+        <MainAppTitle>Popular Movies</MainAppTitle>
+        <MovieSlider movies={popularMovies} />
+      </MovieSliderWrapper>
+
+      <MovieSliderWrapper>
+        <MainAppTitle>Top Rated Movies</MainAppTitle>
+        <MovieSlider movies={topRatedMovies} />
+      </MovieSliderWrapper>
+
+      <MovieSliderWrapper>
+        <MainAppTitle>Upcoming Movies</MainAppTitle>
+        <MovieSlider movies={upcomingMovies} />
+      </MovieSliderWrapper>
     </MainAppDiv>
   );
 };

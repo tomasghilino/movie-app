@@ -9,6 +9,8 @@ const useMovies = () => {
     id: null,
   });
   const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
   // GET ONE RANDOM POPULAR MOVIE
   const fetchOneRandomMov = async () => {
@@ -48,12 +50,43 @@ const useMovies = () => {
     }
   };
 
+  // GET ARRAY WITH 20 TOP RATED MOVIES
+  const fetchTopRatedMovies = async () => {
+    const apikey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${apikey}&page=1`
+      );
+
+      setTopRatedMovies(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // GET ARRAY WITH 20 UPCOMING MOVIES
+  const fetchUpcomingMovies = async () => {
+    const apikey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${apikey}&page=1`
+      );
+
+      setUpcomingMovies(res.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Get Data
   useEffect(() => {
     fetchOneRandomMov();
     fetchPopularMovies();
+    fetchTopRatedMovies();
+    fetchUpcomingMovies();
   }, []);
 
-  return { onePopularMovie, popularMovies };
+  return { onePopularMovie, popularMovies, topRatedMovies, upcomingMovies };
 };
 
 export default useMovies;

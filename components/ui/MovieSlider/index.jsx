@@ -25,6 +25,7 @@ const MovieSlider = ({ movies }) => {
         pagination={{
           clickable: true,
         }}
+        grabCursor={true}
         navigation={true}
         modules={[Pagination, Navigation]}
         className="mySwiper"
