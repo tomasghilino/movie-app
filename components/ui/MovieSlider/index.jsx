@@ -38,6 +38,7 @@ const MovieSlider = ({ movies }) => {
             <Movie
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
               title={movie.title}
+              id={movie.id}
             />
           </SwiperSlide>
         ))}
