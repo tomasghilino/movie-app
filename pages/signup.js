@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/Layout';
 import Link from 'next/dist/client/link';
 import { useRouter } from 'next/router';
@@ -18,31 +18,47 @@ import { SignupSchema } from '../Auth/formValidations';
 
 //FIREBASE
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { doc, addDoc, collection } from 'firebase/firestore';
+
+import AuthContext from '../context/AuthContext';
 
 const Signup = () => {
   const { push } = useRouter();
 
+  const { user } = useContext(AuthContext);
+
   const register = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      // ADDING USER IN COLLECTION : user in session id === user in collection id, so we can get his data
+      const userRef = collection(db, 'user');
+      addDoc(userRef, {
+        id: res.user.uid,
+        favoritesMovies: [],
+        listMovies: [],
+      });
+
       push('/');
 
       Swal.fire({
         title: 'Registrado!',
         text: 'Ya podes navegar tranquilo',
         icon: 'success',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       });
     } catch (error) {
       Swal.fire({
         title: 'Error!',
         text: 'No se pudo realizar el registro',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       });
     }
   };
+
+  const createCollection = () => {};
 
   return (
     <Layout>
@@ -59,6 +75,7 @@ const Signup = () => {
           validationSchema={SignupSchema}
           onSubmit={(values) => {
             register(values.email, values.password);
+            // createCollection();
           }}
         >
           {({
@@ -87,7 +104,9 @@ const Signup = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.password && touched.password && <Error text={errors.password} />}
+              {errors.password && touched.password && (
+                <Error text={errors.password} />
+              )}
               <input
                 type="password"
                 name="passwordRepeat"
@@ -95,7 +114,9 @@ const Signup = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              {errors.passwordRepeat && touched.passwordRepeat && <Error text={errors.passwordRepeat} />}
+              {errors.passwordRepeat && touched.passwordRepeat && (
+                <Error text={errors.passwordRepeat} />
+              )}
               <button type="submit">Register</button>
             </Form>
           )}
