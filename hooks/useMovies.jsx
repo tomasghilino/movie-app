@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 const useMovies = () => {
@@ -11,6 +12,8 @@ const useMovies = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
+
+  const router = useRouter();
 
   // GET ONE RANDOM POPULAR MOVIE
   const fetchOneRandomMov = async () => {

@@ -1,17 +1,15 @@
-// should be dynamic by img id
-import { useRouter } from 'next/router';
+import Layout from '../../components/Layout';
+import MovieDetails from '../../components/MovieDetails';
+
 
 const MovieData = () => {
 
-  //routing para obtener el id actual
-  const router = useRouter();
-  const { query: { id } } = router;
-
   return (
-    <div>
-      <h1>Movie Info</h1>
-      <p>{id}</p>
-    </div>
+    <Layout>
+      <MovieDetails>
+        
+      </MovieDetails>
+    </Layout>
   );
 };
 

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FooterLayout = styled.div`
   width: 100%;
+  z-index: 2;
 `;
 
 export const FooterContent = styled.div`
