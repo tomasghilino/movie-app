@@ -19,22 +19,17 @@ import { SignupSchema } from '../Auth/formValidations';
 //FIREBASE
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { doc, addDoc, collection } from 'firebase/firestore';
-
-import AuthContext from '../context/AuthContext';
+import { doc, setDoc } from 'firebase/firestore';
 
 const Signup = () => {
   const { push } = useRouter();
-
-  const { user } = useContext(AuthContext);
 
   const register = async (email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       // ADDING USER IN COLLECTION : user in session id === user in collection id, so we can get his data
-      const userRef = collection(db, 'user');
-      addDoc(userRef, {
+      await setDoc(doc(db, 'user', res.user.uid), {
         id: res.user.uid,
         favoritesMovies: [],
         listMovies: [],
@@ -58,8 +53,6 @@ const Signup = () => {
     }
   };
 
-  const createCollection = () => {};
-
   return (
     <Layout>
       <Container>
@@ -75,7 +68,6 @@ const Signup = () => {
           validationSchema={SignupSchema}
           onSubmit={(values) => {
             register(values.email, values.password);
-            // createCollection();
           }}
         >
           {({
