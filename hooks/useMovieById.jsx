@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const UseMovieById = () => {
+const useMovieById = () => {
 
     const  router  = useRouter();
     const [movie, setMovie] = useState({});
@@ -29,7 +29,7 @@ const UseMovieById = () => {
     }, [router.isReady]);
     
 
-    return ( movie );
+    return { movie };
 }
  
-export default UseMovieById;
+export default useMovieById;

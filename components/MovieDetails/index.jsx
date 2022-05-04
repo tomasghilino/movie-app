@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import useMovieById from '../../hooks/useMovieById';
 
 import { Hero } from '../HomeApp/HomeAppElements';
 
@@ -12,11 +13,8 @@ const MovieDetails = () => {
     
     // const  router  = useRouter();
     // const { query: { id } } = router;
-    const [movie, setMovie] = useState({});
-
-    useEffect(() => {
-        fetchMovieById();
-    }, []);
+    const [movieData, setMovieData] = useState({});
+    const { movie } = useMovieById();
 
     return ( 
         <Hero>
