@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import {
   MainAppDiv,
@@ -7,9 +7,12 @@ import {
 } from './MainAppElements';
 
 import useMovies from '../../hooks/useMovies';
+import { useAuthUser } from '../../hooks/useAuthUser';
 import MovieSlider from '../ui/MovieSlider';
+
 const MainApp = () => {
   const { popularMovies, topRatedMovies, upcomingMovies } = useMovies();
+  const { userData } = useAuthUser();
 
   return (
     <MainAppDiv>
