@@ -10,22 +10,9 @@ import { MovieDetailsBgImage, MovieDetailsContent, MovieDetailsTitle, MovieDetai
 
 const MovieDetails = () => {
     
-    const  router  = useRouter();
-    const { query: { id } } = router;
+    // const  router  = useRouter();
+    // const { query: { id } } = router;
     const [movie, setMovie] = useState({});
-
-    const fetchMovieById = async () => {
-        const apikey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
-        try {
-            const res = await axios.get(
-            `https://api.themoviedb.org/3/movie/${id}?api_key=${apikey}&page=1`
-            );
-
-            setMovie(res.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     useEffect(() => {
         fetchMovieById();
