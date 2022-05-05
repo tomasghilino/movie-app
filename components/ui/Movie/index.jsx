@@ -1,7 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { MovieContainer, MovieButtons } from './MovieElements';
+import {
+  MovieContainer,
+  MovieButtonsWrapper,
+  MovieCTAButton,
+  FavoriteButton,
+} from './MovieElements';
 
 import { db } from '../../../firebase';
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
@@ -16,6 +21,12 @@ const Movie = ({ src, title, id }) => {
   // check if movie in favs
   const [inFavorites, setInFavorites] = useState(false);
 
+  useEffect(() => {
+    if (Object.keys(userData).length > 0) {
+      setInFavorites(userData.favoritesMovies.includes(id));
+    }
+  }, [userData]);
+
   const handleClick = (id) => {
     push(`/movies/${id}`);
   };
@@ -24,36 +35,39 @@ const Movie = ({ src, title, id }) => {
     const userRef = doc(db, 'user', userData.id);
     let newFavorites;
 
-    if (userData.favoritesMovies.some((moviesId) => moviesId === id)) {
-      newFavorites = userData.favoritesMovies.filter(
-        (moviesId) => moviesId !== id
-      );
-      console.log('Se agrego a favoritos');
-    } else {
-      newFavorites = [...userData.favoritesMovies, id];
-      console.log('Se quito de favoritos');
-    }
+    try {
+      if (userData.favoritesMovies.some((moviesId) => moviesId === id)) {
+        newFavorites = userData.favoritesMovies.filter(
+          (moviesId) => moviesId !== id
+        );
+      } else {
+        newFavorites = [...userData.favoritesMovies, id];
+      }
 
-    await updateDoc(userRef, {
-      favoritesMovies: newFavorites,
-    });
+      await updateDoc(userRef, {
+        favoritesMovies: newFavorites,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
-      {userData ? (
-        <MovieContainer src={src}>
-          <MovieButtons>
-            <button>Play</button>
-            <button onClick={() => handleClick(id)}>Details</button>
-            <button onClick={() => handleFavorites(id)}>
-              ⭐ {inFavorites}
-            </button>
-          </MovieButtons>
-        </MovieContainer>
-      ) : (
-        <p>Cargando</p>
-      )}
+      <MovieContainer src={src}>
+        <MovieButtonsWrapper>
+          <MovieCTAButton>Play</MovieCTAButton>
+          <MovieCTAButton onClick={() => handleClick(id)}>
+            Details
+          </MovieCTAButton>
+          <FavoriteButton
+            inFavorites={inFavorites}
+            onClick={() => handleFavorites(id)}
+          >
+            ⭐
+          </FavoriteButton>
+        </MovieButtonsWrapper>
+      </MovieContainer>
     </>
   );
 };
