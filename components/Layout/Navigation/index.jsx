@@ -29,7 +29,7 @@ const Navigation = () => {
       <NavItemsWrapper>
         {user != null ? (
           <>
-            <Link href="/">Favorites</Link>
+            <Link href="/favorites">Favorites</Link>
             <Link href="/">My List</Link>
             <a href="/" onClick={signOutUser}>
               Sign Out
