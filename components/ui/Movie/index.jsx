@@ -9,11 +9,11 @@ import {
 } from './MovieElements';
 
 import { db } from '../../../firebase';
-import { updateDoc, doc, getDoc } from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 
 import { useAuthUser } from '../../../hooks/useAuthUser';
 
-const Movie = ({ src, title, id }) => {
+const Movie = ({ movie }) => {
   const { push } = useRouter();
 
   const { userData } = useAuthUser();
@@ -23,25 +23,36 @@ const Movie = ({ src, title, id }) => {
 
   useEffect(() => {
     if (Object.keys(userData).length > 0) {
-      setInFavorites(userData.favoritesMovies.includes(id));
+      setInFavorites(
+        userData.favoritesMovies.some((favsMovie) => favsMovie.id === movie.id)
+      );
     }
   }, [userData]);
 
-  const handleClick = (id) => {
-    push(`/movies/${id}`);
+  const handleClick = () => {
+    push(`/movies/${movie.id}`);
   };
 
-  const handleFavorites = async (id) => {
+  const handleFavorites = async () => {
     const userRef = doc(db, 'user', userData.id);
-    let newFavorites;
+    let newFavorites = [];
 
     try {
-      if (userData.favoritesMovies.some((moviesId) => moviesId === id)) {
+      if (
+        userData.favoritesMovies.some((favsMovie) => favsMovie.id === movie.id)
+      ) {
         newFavorites = userData.favoritesMovies.filter(
-          (moviesId) => moviesId !== id
+          (favsMovieFilter) => favsMovieFilter.id !== movie.id
         );
       } else {
-        newFavorites = [...userData.favoritesMovies, id];
+        newFavorites = [
+          ...userData.favoritesMovies,
+          {
+            id: movie.id,
+            poster_path: `https://image.tmdb.org/t/p/original${movie.poster_path}`,
+            title: movie.title,
+          },
+        ];
       }
 
       await updateDoc(userRef, {
@@ -54,15 +65,15 @@ const Movie = ({ src, title, id }) => {
 
   return (
     <>
-      <MovieContainer src={src}>
+      <MovieContainer
+        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+      >
         <MovieButtonsWrapper>
           <MovieCTAButton>Play</MovieCTAButton>
-          <MovieCTAButton onClick={() => handleClick(id)}>
-            Details
-          </MovieCTAButton>
+          <MovieCTAButton onClick={() => handleClick()}>Details</MovieCTAButton>
           <FavoriteButton
             inFavorites={inFavorites}
-            onClick={() => handleFavorites(id)}
+            onClick={() => handleFavorites()}
           >
             ⭐
           </FavoriteButton>

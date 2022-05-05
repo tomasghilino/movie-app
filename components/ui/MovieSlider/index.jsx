@@ -35,11 +35,7 @@ const MovieSlider = ({ movies }) => {
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <Movie
-              src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-              title={movie.title}
-              id={movie.id}
-            />
+            <Movie movie={movie} />
           </SwiperSlide>
         ))}
       </Swiper>
