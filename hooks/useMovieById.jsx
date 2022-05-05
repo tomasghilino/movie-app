@@ -5,7 +5,7 @@ import axios from 'axios';
 const useMovieById = () => {
 
     const  router  = useRouter();
-    const [movie, setMovie] = useState({});
+    const [ movieById, setMovieById ] = useState({});
 
     const fetchMovieById = async () => {
         const apikey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
@@ -15,7 +15,7 @@ const useMovieById = () => {
             `https://api.themoviedb.org/3/movie/${id}?api_key=${apikey}&page=1`
             );
 
-            setMovie(res.data);
+            setMovieById(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -29,7 +29,7 @@ const useMovieById = () => {
     }, [router.isReady]);
     
 
-    return { movie };
+    return { movieById };
 }
  
 export default useMovieById;
