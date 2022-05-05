@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
 export const MovieDetailsLayout = styled.div`
-    
-`;
-
-export const MovieDetailsBgImage = styled.img`
-    filter: brightness(90%);
-`;
-
-export const MovieDetailsContent = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -22,12 +14,21 @@ export const MovieDetailsContent = styled.div`
     padding: 2rem;
 `;
 
+export const MovieDetailsBgImage = styled.img`
+    filter: brightness(90%);
+    border-radius: 2rem;
+`;
+
+export const MovieDetailsContent = styled.div`
+    margin: 0 3rem;
+`;
+
 export const MovieDetailsTitle = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     margin-bottom: 1rem;
-    gap: 2rem;
 
     a {
         font-size: 4rem;
@@ -45,5 +46,10 @@ export const MovieDetailsTitle = styled.div`
 `;
 
 export const MovieDetailsOverview = styled.p`
-    
+    font-size: 1.4rem;
+`;
+
+export const MovieDetailsGenres = styled.div`
+    display: flex;
+    gap: .5rem;
 `;

@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
+import React from 'react';
 import useMovieById from '../../hooks/useMovieById';
 
 import { Hero } from '../HomeApp/HomeAppElements';
 
-import { MovieDetailsBgImage, MovieDetailsContent, MovieDetailsTitle, MovieDetailsOverview } from './MovieDetailsElements';
+import { MovieDetailsLayout, MovieDetailsBgImage, MovieDetailsContent, MovieDetailsTitle, MovieDetailsOverview, MovieDetailsGenres } from './MovieDetailsElements';
 
     
 
 const MovieDetails = () => {
     
-    // const  router  = useRouter();
-    // const { query: { id } } = router;
-    const [movieData, setMovieData] = useState({});
-    const { movie } = useMovieById();
+    const { movieById } = useMovieById();
 
     return ( 
-        <Hero>
-            <MovieDetailsBgImage src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt="" />
-            
-            <MovieDetailsContent>
-                <div>
-                    <MovieDetailsTitle>
-                        <a href={movie.homepage}>{movie.title}</a>
-                        <p>{movie.vote_average}</p>
-                    </MovieDetailsTitle>
-                    <MovieDetailsOverview>
-                        {movie.overview}
-                    </MovieDetailsOverview>
-                </div>
-                <div>
-                    {/* {movie.genres.map(genre => (
-                        <p>{genre.name}</p>
-                    ))} */}
-                </div>
-            </MovieDetailsContent>  
-        </Hero>
+        <>
+            { Object.keys(movieById).length > 0 ? (
+            <Hero>
+                <MovieDetailsLayout>
+                    
+                    <MovieDetailsBgImage src={`https://image.tmdb.org/t/p/original${movieById.backdrop_path}`} alt="" />
+                    
+                    <MovieDetailsContent>
+                        <MovieDetailsTitle>
+                            <a href={movieById.homepage}>{movieById.title}</a>
+                            <MovieDetailsGenres>
+                                {movieById.genres.map(genre => 
+                                    <p key={genre.id}>{genre.name}</p>    
+                                )}
+                            </MovieDetailsGenres>
+                            <p>{movieById.vote_average}</p>
+                        </MovieDetailsTitle>
+                        
+                        <MovieDetailsOverview>
+                            {movieById.overview}
+                        </MovieDetailsOverview>
+                    </MovieDetailsContent>
+                </MovieDetailsLayout>  
+            </Hero>
+        ) : (
+            <h1>jaja</h1>    
+        )}
+        </>
     );
 }
  
