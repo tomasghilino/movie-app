@@ -68,7 +68,7 @@ const Movie = ({ movie }) => {
       <MovieContainer
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
       >
-        <MovieButtonsWrapper>
+        
           <MovieCTAButton>Play</MovieCTAButton>
           <MovieCTAButton onClick={() => handleClick()}>Details</MovieCTAButton>
           <FavoriteButton
@@ -77,7 +77,7 @@ const Movie = ({ movie }) => {
           >
             ⭐
           </FavoriteButton>
-        </MovieButtonsWrapper>
+        
       </MovieContainer>
     </>
   );

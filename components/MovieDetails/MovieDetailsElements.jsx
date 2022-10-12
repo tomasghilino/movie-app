@@ -10,7 +10,6 @@ export const MovieDetailsLayout = styled.div`
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border-radius: 1rem;
     padding: 2rem;
 `;
 
@@ -32,6 +31,7 @@ export const MovieDetailsTitle = styled.div`
 
     a {
         font-size: 4rem;
+        font-weight: bold;
         text-decoration: none;
         color: var(--primary);
 
@@ -41,15 +41,26 @@ export const MovieDetailsTitle = styled.div`
     }
 
     p {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+        font-weight: normal;
     }
 `;
 
 export const MovieDetailsOverview = styled.p`
+    display: block;
+    margin-inline: auto;
     font-size: 1.4rem;
+    margin-top: 4rem;
 `;
 
 export const MovieDetailsGenres = styled.div`
     display: flex;
     gap: .5rem;
+    color: var(--darkRed);
+
+    p {
+        ::after {
+            content: ' -';
+        }
+    }
 `;
